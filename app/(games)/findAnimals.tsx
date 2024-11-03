@@ -1,8 +1,9 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {COLORS} from "@/constants/colors";
 import Button from "@/components/button/Button";
+import CardGame from "@/components/cardGame/CardGame";
 
 export default function Page() {
 
@@ -10,13 +11,8 @@ export default function Page() {
         <>
             <SafeAreaView style={styles.container}>
                 <View style={styles.wrapper}>
-                    <View style={styles.imageWrap}>
-                        <Image
-                            style={styles.image}
-                            resizeMode={'cover'}
-                            source={require('../assets/images/animalsScreen.webp')}
-                        />
-                    </View>
+                    <CardGame src={require('../assets/images/animalsScreen.webp')}
+                              resizeMode={'cover'}/>
                     <Button title={'Начать игру'}/>
                 </View>
             </SafeAreaView>
@@ -30,6 +26,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
+        padding: 10,
         backgroundColor: COLORS.background,
         color: '#CDCDE0'
     },
@@ -38,17 +35,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         gap: 20
-    },
-    imageWrap: {
-        width: '90%',
-        height: '50%',
-        borderRadius: 20,
-        overflow: 'hidden',
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 15,
     },
     text: {
         color: COLORS.gray
