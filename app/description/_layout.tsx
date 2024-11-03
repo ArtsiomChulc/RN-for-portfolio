@@ -1,8 +1,12 @@
-import {Slot} from "expo-router";
+import {Slot, Stack} from "expo-router";
 
 
 export default function DescriptionLayout() {
     return (
-        <Slot/>
+        <Stack>
+            <Stack.Screen name='description-page' options={{
+                headerShown: false,
+            }}/>
+        </Stack>
     );
 };
