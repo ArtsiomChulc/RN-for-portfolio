@@ -1,13 +1,14 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { COLORS } from "@/constants/colors";
-import { useState } from 'react';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {COLORS} from "@/constants/colors";
+import {useState} from 'react';
 import {StatusBar} from "expo-status-bar";
+import Button from "@/components/button/Button";
 
 type Props = {
     setNameLS: (name: string) => void;
 }
 
-export default function Modal({ setNameLS }: Props) {
+export default function Modal({setNameLS}: Props) {
     const [inputValue, setInputValue] = useState('');
 
     const handleSave = () => {
@@ -33,17 +34,11 @@ export default function Modal({ setNameLS }: Props) {
                                 placeholder='Введите Имя'
                             />
                         </View>
-                        <View style={styles.button}>
-                            <TouchableOpacity style={styles.button} onPress={handleSave}>
-                                <Text style={styles.buttonText}>
-                                    Сохранить
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                        <Button onClick={handleSave} title={'Сохранить'}/>
                     </View>
                 </View>
             </View>
-            <StatusBar backgroundColor="#161622" style="light" />
+            <StatusBar backgroundColor="#161622" style="light"/>
         </>
     );
 };
@@ -70,17 +65,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#cdcbcb',
         borderRadius: 5,
         marginBottom: 30,
-    },
-    button: {
-        width: '100%',
-        backgroundColor: COLORS.buttonColor,
-        borderRadius: 5,
-        padding: 10,
-        alignSelf: "center",
-    },
-    buttonText: {
-        fontSize: 20,
-        color: COLORS.background,
-        textAlign: 'center',
     },
 });
