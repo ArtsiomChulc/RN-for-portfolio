@@ -1,8 +1,10 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Text} from 'react-native';
 import {COLORS} from "@/constants/colors";
 import {useState} from 'react';
 import {StatusBar} from "expo-status-bar";
 import Button from "@/components/button/Button";
+import SwiperImage from "@/components/swiper/SwiperImage";
+import {avatarsData} from "@/app/db/avatarsData/avatars";
 
 type Props = {
     setNameLS: (name: string) => void;
@@ -21,6 +23,8 @@ export default function Modal({setNameLS}: Props) {
             <View style={styles.modalContainer}>
                 <View style={styles.modal}>
                     <View style={styles.wrapper}>
+                        <Text style={styles.text}>Введите свое имя, чтобы открылась
+                            домашняя страница</Text>
                         <View style={styles.input}>
                             <TextInput
                                 value={inputValue}
@@ -34,6 +38,7 @@ export default function Modal({setNameLS}: Props) {
                                 placeholder='Введите Имя'
                             />
                         </View>
+                        <SwiperImage sources={avatarsData}/>
                         <Button onClick={handleSave} title={'Сохранить'}/>
                     </View>
                 </View>
@@ -59,6 +64,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingHorizontal: 10,
+    },
+    text: {
+        color: COLORS.gray,
+        fontSize: 20,
+        marginBottom: 20,
+        textAlign: 'center',
+        lineHeight: 32,
     },
     input: {
         width: '100%',
