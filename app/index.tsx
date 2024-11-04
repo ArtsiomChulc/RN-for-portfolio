@@ -52,13 +52,9 @@ export default function Home() {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
-                    <AntDesign name="deleteuser" size={24} color={'#fff'}/>
-                    <Text style={styles.removeText}>удалить пользователя</Text>
-                </TouchableOpacity>
-                <ScrollView contentContainerStyle={styles.content}>
-                    <Text style={styles.text}>Привет: {name}!</Text>
-                    <View style={styles.wrapper}>
+                <Text style={styles.text}>Привет: {name}!</Text>
+                <View style={styles.wrapper}>
+                    <ScrollView contentContainerStyle={styles.content}>
                         <Text style={styles.beginText}>
                             В современном мире технологии играют ключевую роль в нашей
                             жизни. Каждый день мы сталкиваемся с новыми инновациями,
@@ -75,8 +71,12 @@ export default function Home() {
                             Каждый из нас может внести свой вклад в создание более
                             ответственного цифрового мира.
                         </Text>
-                    </View>
-                </ScrollView>
+                        <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
+                            <AntDesign name="deleteuser" size={24} color={'#fff'}/>
+                            <Text style={styles.removeText}>удалить пользователя</Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                </View>
             </SafeAreaView>
             <StatusBar backgroundColor="#161622" style="light"/>
         </>
@@ -112,21 +112,21 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textTransform: 'capitalize',
     },
-    content: {
-        flexGrow: 1,
-        padding: 20,
-        justifyContent: 'space-between',
-    },
     wrapper: {
-        width: '100%',
         padding: 12,
+        height: '93%',
         borderWidth: 1,
-        borderColor: COLORS.gray,
-        borderRadius: 10
+        borderColor: COLORS.buttonColor,
+        borderRadius: 10,
+    },
+    content: {
+        padding: 20,
+        flexGrow: 1,
     },
     beginText: {
         fontSize: 20,
         textAlign: 'left',
         color: COLORS.gray,
+        marginBottom: 20
     }
 });
