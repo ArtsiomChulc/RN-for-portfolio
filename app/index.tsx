@@ -1,35 +1,21 @@
-import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {COLORS} from "@/constants/colors";
 import {StatusBar} from "expo-status-bar";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Modal from "@/components/modal/Modal";
+import {useUserName} from "@/helpers/getUserName";
+import {useAvatar} from "@/helpers/getAvaFromStorage";
+import {avatarsData} from "@/app/db/avatarsData/avatars";
+import ProfileBlock from "@/components/profileBlock/ProfileBlock";
 
 export default function Home() {
-    const [name, setName] = useState<string>('');
+    const userName = useUserName();
+    const avatarUser = useAvatar(avatarsData);
 
-    const getUserName = async () => {
-        try {
-            const storedName = await AsyncStorage.getItem("name");
-            if (storedName !== null) {
-                setName(storedName);
-            }
-        } catch (error: any) {
-            throw new Error(error.message);
-        }
-    };
-
-    useEffect(() => {
-        getUserName();
-    }, []);
+    const [name, setName] = useState<string>(userName);
 
     const setNameLS = async (newName: string) => {
         try {
@@ -42,6 +28,7 @@ export default function Home() {
 
     const removeUser = async () => {
         await AsyncStorage.removeItem("name");
+        await AsyncStorage.removeItem("avatarId");
         setName('');
     };
 
@@ -52,7 +39,7 @@ export default function Home() {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <Text style={styles.text}>Привет: {name}!</Text>
+                <ProfileBlock src={avatarUser ? avatarUser : require('../assets/image/avatars/no_ava.png')} userName={name}/>
                 <View style={styles.wrapper}>
                     <ScrollView contentContainerStyle={styles.content}>
                         <Text style={styles.beginText}>
@@ -114,7 +101,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         padding: 12,
-        height: '93%',
+        height: '85%',
         borderWidth: 1,
         borderColor: COLORS.buttonColor,
         borderRadius: 10,

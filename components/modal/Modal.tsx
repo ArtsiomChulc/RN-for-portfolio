@@ -5,6 +5,7 @@ import {StatusBar} from "expo-status-bar";
 import Button from "@/components/button/Button";
 import SwiperImage from "@/components/swiper/SwiperImage";
 import {avatarsData} from "@/app/db/avatarsData/avatars";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Props = {
     setNameLS: (name: string) => void;
@@ -12,10 +13,28 @@ type Props = {
 
 export default function Modal({setNameLS}: Props) {
     const [inputValue, setInputValue] = useState('');
+    const [error, setError] = useState('');
 
     const handleSave = () => {
+        if (!inputValue.trim()) {
+            setError('Имя не может быть пустым!!!')
+        }
         setNameLS(inputValue);
         setInputValue('');
+    };
+
+    const selectHandlerAva = async (id: number) => {
+        const selectedAva = avatarsData.find((item) => item.id === id);
+        if (selectedAva) {
+            try {
+                await AsyncStorage.setItem('avatarId', JSON.stringify({ id: selectedAva.id }));
+                console.log(`Сохранён ID аватара: ${selectedAva.id}`);
+            } catch (error: any) {
+                console.error("Ошибка при сохранении ID аватара:", error.message);
+            }
+        } else {
+            console.warn("Аватар не найден для ID:", id);
+        }
     };
 
     return (
@@ -37,8 +56,9 @@ export default function Modal({setNameLS}: Props) {
                                 }}
                                 placeholder='Введите Имя'
                             />
+                            <Text style={styles.error}>{error}</Text>
                         </View>
-                        <SwiperImage sources={avatarsData}/>
+                        <SwiperImage sources={avatarsData} onClick={selectHandlerAva}/>
                         <Button onClick={handleSave} title={'Сохранить'}/>
                     </View>
                 </View>
@@ -60,7 +80,7 @@ const styles = StyleSheet.create({
         height: '40%',
     },
     wrapper: {
-        flex: 1,
+        width: '100%',
         alignItems: "center",
         justifyContent: "center",
         paddingHorizontal: 10,
@@ -77,5 +97,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#cdcbcb',
         borderRadius: 5,
         marginBottom: 30,
+        position: 'relative'
     },
+    error: {
+        color: 'red',
+        position: 'absolute',
+        bottom: -20,
+    }
 });
