@@ -1,7 +1,9 @@
+import {ImageSourcePropType} from "react-native";
+
 type animalsGame = {
     id: number
     name: string
-    image: string
+    image: ImageSourcePropType
     correctAnswer: string
     answers: Array<string>
 }
@@ -10,7 +12,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 1,
         name: "Лев",
-        image: '',
+        image: require('./images/lion.png'),
         correctAnswer: "Лев",
         answers: [
             'Слон', 'Крокодил', 'Леопард', 'Лев',
@@ -19,7 +21,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 2,
         name: "Медведь",
-        image: '',
+        image: require('./images/bear.png'),
         correctAnswer: "Медведь",
         answers: [
             'Бобер', 'Лиса', 'Медведь', 'Тигр',
@@ -28,7 +30,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 3,
         name: "Корова",
-        image: '',
+        image: require('./images/cow.png'),
         correctAnswer: "Корова",
         answers: [
             'Овца', 'Лошадь', 'Корова', 'Коза',
@@ -37,7 +39,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 4,
         name: "Змея",
-        image: '',
+        image: require('./images/snack.png'),
         correctAnswer: "Змея",
         answers: [
             'Ящерица', 'Змея', 'Крокодил', 'Черепаха',
@@ -46,7 +48,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 5,
         name: "Лошадь",
-        image: '',
+        image: require('./images/horse.png'),
         correctAnswer: "Лошадь",
         answers: [
             'Осел', 'Зебра', 'Лошадь', 'Кобыла',
@@ -55,7 +57,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 6,
         name: "Собака",
-        image: '',
+        image: require('./images/dog.png'),
         correctAnswer: "Собака",
         answers: [
             'Кошка', 'Собака', 'Мышь', 'Хомяк',
@@ -64,7 +66,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 7,
         name: "Обезьяна",
-        image: '',
+        image: require('./images/monkey.png'),
         correctAnswer: "Обезьяна",
         answers: [
             'Петух', 'Обезьяна', 'Попугай', 'Слон',
@@ -73,7 +75,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 8,
         name: "Жираф",
-        image: '',
+        image: require('./images/zhiraf.webp'),
         correctAnswer: "Жираф",
         answers: [
             'Зебра', 'Лев', 'Жираф', 'Слон',
@@ -82,7 +84,7 @@ export const findAnimals: animalsGame[] = [
     {
         id: 9,
         name: "Зебра",
-        image: '',
+        image: require('./images/zebra.png'),
         correctAnswer: "Зебра",
         answers: [
             'Лошадь', 'Зебра', 'Осел', 'Коник',

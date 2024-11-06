@@ -5,8 +5,11 @@ export default function TabLayout() {
     return (
         <>
             <Stack>
-                <Stack.Screen name='findAnimals' options={{
+                <Stack.Screen name='all-games' options={{
                     headerShown: false
+                }}/>
+                <Stack.Screen name='find-animals' options={{
+                    headerShown: false,
                 }}/>
             </Stack>
         </>
