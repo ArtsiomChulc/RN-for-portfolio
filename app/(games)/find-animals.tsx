@@ -6,6 +6,7 @@ import {findAnimals} from "@/app/db";
 import Button from "@/components/button/Button";
 import {useState} from "react";
 import PopUp from "@/components/popUp/PopUp";
+import {useUserName} from "@/helpers/getUserName";
 
 
 export default function FindAnimals() {
@@ -14,6 +15,9 @@ export default function FindAnimals() {
     const [popUpVisible, setPopUpVisible] = useState(false);
     const [popUpTitle, setPopUpTitle] = useState('');
     const [popUpMessage, setPopUpMessage] = useState('');
+
+    const userName = useUserName();
+    const questionsQuantity = findAnimals.length;
 
     const currentAnimal = findAnimals[currentQuestionI]
 
@@ -36,7 +40,7 @@ export default function FindAnimals() {
         if (currentQuestionI < findAnimals.length - 1) {
             setCurrentQuestionI(currentQuestionI + 1);
         } else {
-            setPopUpTitle("Игра закончена!");
+            setPopUpTitle(`Игра закончена ${userName ? userName : ''}!`);
             setPopUpMessage(`Ваш счет: ${score + 1} из ${findAnimals.length}`);
             setPopUpVisible(true);
             setCurrentQuestionI(0);
@@ -58,7 +62,7 @@ export default function FindAnimals() {
                 <Image style={styles.img} source={currentAnimal.image}
                        resizeMode={'contain'}/>
             </View>
-            <Text style={styles.text}>{score}</Text>
+            <Text style={styles.text}>{score}/{questionsQuantity}</Text>
             <View style={styles.wrapBtn}>
                 {answersButtons}
             </View>
