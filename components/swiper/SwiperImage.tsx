@@ -41,6 +41,7 @@ export default function SwiperImage({ sources, onClick }: Props) {
 
 const styles = StyleSheet.create({
     scrollContainer: {
+        flexGrow: 1,
         flexDirection: 'row',
         gap: 20,
         alignItems: 'center',

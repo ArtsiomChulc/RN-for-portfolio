@@ -28,7 +28,6 @@ export default function Modal({setNameLS}: Props) {
         if (selectedAva) {
             try {
                 await AsyncStorage.setItem('avatarId', JSON.stringify({ id: selectedAva.id }));
-                console.log(`Сохранён ID аватара: ${selectedAva.id}`);
             } catch (error: any) {
                 console.error("Ошибка при сохранении ID аватара:", error.message);
             }
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     },
     modal: {
         width: '80%',
-        height: '40%',
     },
     wrapper: {
         width: '100%',
