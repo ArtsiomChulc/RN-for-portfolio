@@ -31,7 +31,6 @@ export default function RootLayout() {
                 backgroundColor: "#161622",
                 borderTopColor: "transparent",
                 height: 84,
-                alignItems: "center",
                 justifyContent: "center"
             },
         }}>
