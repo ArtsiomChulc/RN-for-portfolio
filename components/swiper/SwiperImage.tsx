@@ -1,11 +1,16 @@
-import { Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { avatarsDataType } from "@/app/db/avatarsData/avatars";
-import { COLORS } from "@/constants/colors";
-import { useState } from 'react';
+import styled from 'styled-components/native';
+import {avatarsDataType} from "@/app/db/avatarsData/avatars";
+import {COLORS} from "@/constants/colors";
+import {useState} from 'react';
 
 type Props = {
     sources: Array<avatarsDataType>,
     onClick?: (id: number) => void,
+}
+
+type ImageAvaType = {
+    id: number
+    selectId: number | null
 }
 
 export default function SwiperImage({ sources, onClick }: Props) {
@@ -19,52 +24,41 @@ export default function SwiperImage({ sources, onClick }: Props) {
             }
         };
 
-        const imgStyle = id === selectedId ? styles.selectedImg : styles.img;
-
         return (
-            <TouchableOpacity key={id} style={styles.imgWrap} onPress={selectAva}>
-                <Image style={imgStyle} source={src} />
-            </TouchableOpacity>
+            <ImageWrapBtn key={id} onPress={selectAva}>
+                <ImageAva id={id} selectId={selectedId} source={src} />
+            </ImageWrapBtn>
         );
     });
 
     return (
-        <ScrollView
+        <ScrollArea
+            contentContainerStyle={{alignItems: 'center', justifyContent: 'center', columnGap: 15}}
             horizontal
-            contentContainerStyle={styles.scrollContainer}
             showsHorizontalScrollIndicator={false}
         >
             {dataImages}
-        </ScrollView>
+        </ScrollArea>
     );
 };
 
-const styles = StyleSheet.create({
-    scrollContainer: {
-        flexGrow: 1,
-        flexDirection: 'row',
-        gap: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        marginBottom: 20,
-    },
-    imgWrap: {
-        width: 60,
-        height: 60,
-    },
-    img: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: COLORS.gray,
-        borderRadius: 30,
-    },
-    selectedImg: {
-        width: '105%',
-        height: '105%',
-        borderRadius: 30,
-        borderWidth: 4,
-        borderColor: COLORS.buttonColor,
-        opacity: 0.4,
-    }
-});
+const ScrollArea = styled.ScrollView`
+    height: 110px;
+    flex-direction: row;
+    margin-bottom: 20px;
+`
+
+const ImageWrapBtn = styled.TouchableOpacity`
+    width: 70px;
+    height: 70px;
+    gap: 10px;
+`
+const ImageAva = styled.Image<ImageAvaType>`
+    width: ${(props) => props.id === props.selectId ? '103%' : '100%'};
+    height: ${(props) => props.id === props.selectId ? '103%' : '100%'};
+    background-color: ${COLORS.gray};
+    border-radius: 35px;
+    border-width: ${(props) => props.id === props.selectId ? '3px' : '0'};
+    opacity: ${(props) => props.id === props.selectId ? 0.45 : 1};
+    border-color: ${COLORS.buttonColor};
+`
