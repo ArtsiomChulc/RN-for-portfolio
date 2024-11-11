@@ -37,8 +37,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     absolute: {
+        width: '80%',
         position: 'absolute',
         bottom: 10,
-        left: 35,
+        left: 15,
     },
 })

@@ -11,6 +11,9 @@ export default function TabLayout() {
                 <Stack.Screen name='find-animals' options={{
                     headerShown: false,
                 }}/>
+                <Stack.Screen name='find-couple' options={{
+                    headerShown: false,
+                }}/>
             </Stack>
         </>
     );

@@ -9,6 +9,7 @@ export default function Page() {
     const router = useRouter();
 
     const getAnimalsGame = () => router.push('/find-animals')
+    const getCoupleGame = () => router.push('/find-couple')
 
     return (
         <>
@@ -17,9 +18,8 @@ export default function Page() {
                     <CardGame src={require('../assets/images/animalsScreen.webp')}
                               resizeMode={'cover'} buttonTitle={'Начать узнавать' +
                         ' зверей'} onClick={getAnimalsGame}/>
-                    <CardGame src={require('../assets/images/words.webp')}
-                              resizeMode={'cover'} buttonTitle={'Начать отгадывать' +
-                        ' слова'}/>
+                    <CardGame src={require('../assets/images/findCouple.webp')}
+                              resizeMode={'cover'} buttonTitle={'Начать искать пару'} onClick={getCoupleGame}/>
                 </ScrollView>
             </SafeAreaView>
             <StatusBar backgroundColor="#161622" style="light"/>

@@ -1,4 +1,4 @@
-import {DimensionValue, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {DimensionValue, Pressable, StyleSheet, Text} from 'react-native';
 import {COLORS} from "@/constants/colors";
 
 type Props = {
@@ -10,11 +10,11 @@ type Props = {
 
 export default function Button({onClick, title, widthPercent = '100%', backgroundColor = COLORS.buttonColor}: Props) {
     return (
-        <TouchableOpacity style={[styles.button, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClick} activeOpacity={0.7}>
+        <Pressable style={[styles.button, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClick}>
             <Text style={styles.buttonText}>
                 {title}
             </Text>
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 

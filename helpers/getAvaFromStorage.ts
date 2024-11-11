@@ -4,7 +4,7 @@ import {ImageSourcePropType} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const useAvatar = (array: avatarsDataType[]) => {
-    const [avatarSrc, setAvatarSrc] = useState<ImageSourcePropType>(require('../assets/image/avatars/no_ava.png'));
+    const [avatarSrc, setAvatarSrc] = useState<ImageSourcePropType>(require('@/app/db/avatarsData/avatars/no_ava.png'));
 
     useEffect(() => {
         const fetchAvatar = async () => {
@@ -13,11 +13,11 @@ export const useAvatar = (array: avatarsDataType[]) => {
                 if (storedAvatar) {
                     const selectedAva = JSON.parse(storedAvatar);
                     const foundAvatar = array.find(item => item.id === selectedAva.id);
-                    setAvatarSrc(foundAvatar ? foundAvatar.src : require('../assets/image/avatars/no_ava.png'));
+                    setAvatarSrc(foundAvatar ? foundAvatar.src : require('@/app/db/avatarsData/avatars/no_ava.png'));
                 }
             } catch (error: any) {
                 console.error("Ошибка при получении аватара:", error.message);
-                setAvatarSrc(require('../assets/image/avatars/no_ava.png'));
+                setAvatarSrc(require('@/app/db/avatarsData/avatars/no_ava.png'));
             }
         };
 
