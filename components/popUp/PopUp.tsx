@@ -12,22 +12,20 @@ interface PopUpProps {
 
 const PopUp: React.FC<PopUpProps> = ({visible, title, message, onClose}) => {
     return (
-        <>
-            <Modal
-                transparent={true}
-                animationType="slide"
-                visible={visible}
-                onRequestClose={onClose}
-            >
-                <View style={styles.overlay}>
-                    <View style={styles.container}>
-                        <Text style={styles.title}>{title}</Text>
-                        <Text style={styles.message}>{message}</Text>
-                        <Button title="Закрыть" onClick={onClose}/>
-                    </View>
+        <Modal
+            transparent={true}
+            animationType="fade"
+            visible={visible}
+            onRequestClose={onClose}
+        >
+            <View style={styles.overlay}>
+                <View style={styles.container}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.message}>{message}</Text>
+                    <Button title="Закрыть" onClick={onClose}/>
                 </View>
-            </Modal>
-        </>
+            </View>
+        </Modal>
     );
 };
 
