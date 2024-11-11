@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     selectedImg: {
         width: '105%',
         height: '105%',
-        borderRadius: 30, // Пример радиуса для округления
-        borderWidth: 4, // Добавьте границу для выделенного аватара
+        borderRadius: 30,
+        borderWidth: 4,
         borderColor: COLORS.buttonColor,
         opacity: 0.4,
     }
