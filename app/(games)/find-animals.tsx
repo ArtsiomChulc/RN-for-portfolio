@@ -58,11 +58,13 @@ export default function FindAnimals() {
 
     const getQuestion = () => {
         return <>
+            <Text style={styles.text}>Вопрос № {currentQuestionI + 1}</Text>
             <View style={styles.wrapImg}>
                 <Image style={styles.img} source={currentAnimal.image}
                        resizeMode={'contain'}/>
             </View>
-            <Text style={styles.text}>{score}/{questionsQuantity}</Text>
+            <Text style={styles.text}>Отгадано: {score}</Text>
+            <Text style={styles.text}>Всего вопросов: {questionsQuantity}</Text>
             <View style={styles.wrapBtn}>
                 {answersButtons}
             </View>
@@ -89,14 +91,12 @@ export default function FindAnimals() {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        flex: 1,
         padding: 10,
         backgroundColor: COLORS.background,
         color: '#CDCDE0'
     },
     wrapper: {
-        flex: 1,
-        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
@@ -115,20 +115,21 @@ const styles = StyleSheet.create({
         width: '48%',
     },
     text: {
-        marginBottom: '10%',
+        marginBottom: 10,
         color: COLORS.gray,
-        fontSize: 54,
+        fontSize: 24,
         borderWidth: 1,
-        borderColor: COLORS.gray,
-        paddingHorizontal: 30,
-        paddingVertical: 10,
-        borderRadius: 50
+        borderColor: COLORS.grayOpacity,
+        paddingHorizontal: 25,
+        paddingVertical: 8,
+        borderRadius: 50,
+        backgroundColor: COLORS.backgroundOpacity
     },
     wrapImg: {
         marginTop: 10,
-        marginBottom: 'auto',
-        width: 340,
-        height: 340,
+        marginBottom: 10,
+        width: 250,
+        height: 250,
     },
     img: {
         borderRadius: 20,
