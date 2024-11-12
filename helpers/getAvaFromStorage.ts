@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { avatarsDataType } from "@/app/db/avatarsData/avatars";
 import {ImageSourcePropType} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {avatarsDataType} from "@/db/avatarsData/avatars";
 
 export const useAvatar = (array: avatarsDataType[]) => {
     const [avatarSrc, setAvatarSrc] = useState<ImageSourcePropType>(require('../db/avatarsData/avatars/no_ava.png'));
