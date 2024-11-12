@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         backgroundColor: COLORS.background,
-        color: '#CDCDE0'
+        color: COLORS.gray
     },
     wrapper: {
         alignItems: 'center',
