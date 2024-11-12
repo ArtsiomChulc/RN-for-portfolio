@@ -1,19 +1,16 @@
-import { StatusBar } from "expo-status-bar";
+import {StatusBar} from "expo-status-bar";
 // Импортируем компонент StatusBar из библиотеки Expo для управления статус-баром устройства.
-
-import { COLORS } from "@/constants/colors";
+import {COLORS} from "@/constants/colors";
 // Импортируем объект COLORS, в котором хранятся цветовые константы для приложения.
-
 import styled from "styled-components/native";
 // Импортируем styled-components для создания стилизованных компонентов с помощью CSS в React Native.
-
 import CardMemoryGame from "@/components/cardMemoryGame/CardMemoryGame";
 // Импортируем компонент CardMemoryGame, который отображает отдельную карту для игры.
-
-import { generateCards } from "@/helpers/generateCards";
+import {generateCards} from "@/helpers/generateCards";
 // Импортируем функцию generateCards, которая создаёт массив карт с данными для игры.
-
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import Button from "@/components/button/Button";
+import PopUp from "@/components/popUp/PopUp";
 // Импортируем хуки useEffect и useState из React для работы с состоянием и побочными эффектами.
 
 export default function FindCouple() {
@@ -27,6 +24,9 @@ export default function FindCouple() {
 
     const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
     // Создаем состояние flippedIndices для хранения индексов перевернутых карт (максимум двух) и инициализируем его пустым массивом.
+
+    const [gameOver, setGameOver] = useState(false);
+
 
     useEffect(() => {
         // useEffect выполняет функцию, когда изменяется значение flippedIndices.
@@ -65,7 +65,12 @@ export default function FindCouple() {
                 // Перебираем все карты: если карта совпавшая (matched), оставляем её перевернутой, иначе скрываем.
             }, 500);
         }
-    }, [flippedIndices]);
+        // Проверка на окончание игры
+        const allMatched = cards.every(card => card.matched);
+        if (allMatched) {
+            setGameOver(true);
+        }
+    }, [flippedIndices]); // Добавлено cards в зависимости
     // useEffect сработает каждый раз, когда изменяется flippedIndices, чтобы проверить совпадение карт.
 
     const handleCardPress = (index: number) => {
@@ -90,17 +95,31 @@ export default function FindCouple() {
         }
     };
 
+    const resetGame = () => {
+        setCards(generateCards(gameArray)); // Генерируем новые карты
+        setFlippedIndices([]); // Сбрасываем перевернутые карты
+        setGameOver(false);
+    };
+
     return (
         <>
+            <PopUp visible={gameOver} title={"Поздравляю!!!"} message={"Ты умница..."} onClose={resetGame}/>
             <GameBoard style={{ paddingTop: '25%' }}>
-                {cards.map((card, index) => (
-                    <CardMemoryGame
-                        key={card.id}
-                        value={card.value}
-                        flipped={card.flipped || card.matched}
-                        onPressHandler={() => handleCardPress(index)}
-                    />
-                ))}
+                <WrapperCards contentContainerStyle={{
+                    flexGrow: 1, alignItems: 'center',
+                    justifyContent: 'center', gap: 10,
+                    flexDirection: 'row', flexWrap: 'wrap'
+                }}>
+                    {cards.map((card, index) => (
+                        <CardMemoryGame
+                            key={card.id}
+                            value={card.value}
+                            flipped={card.flipped || card.matched}
+                            onPressHandler={() => handleCardPress(index)}
+                        />
+                    ))}
+                </WrapperCards>
+                <Button title={'Начать сначала'} onClick={resetGame}/>
             </GameBoard>
             {/* Выводим компонент GameBoard, который отображает доску для игры.
                 Для каждой карты создаём компонент CardMemoryGame и передаем:
@@ -111,23 +130,26 @@ export default function FindCouple() {
             */}
 
             <StatusBar backgroundColor="#161622" style="light" />
-            {/* Устанавливаем цвет статус-бара с помощью компонента StatusBar от Expo */}
         </>
     );
 };
 
 const GameBoard = styled.SafeAreaView`
     height: 100%;
+    width: 100%;
     flex-grow: 1;
-    flex-direction: row;
-    padding: 15px;
-    gap: 10px;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     background-color: ${COLORS.background};
     color: #CDCDE0;
 `;
+
+const WrapperCards = styled.ScrollView`
+    width: 90%;
+    padding: 15px;
+    flex-wrap: wrap;
+`
+
 // Стилизованный компонент GameBoard:
 // - Задает высоту и стиль Flexbox для равномерного отображения карт.
 // - Устанавливает цвет фона из констант COLORS и расстояние между элементами.
