@@ -13,7 +13,7 @@ export default function IconTab({title, colorText, children}: Props) {
             <View>
                 {children}
             </View>
-            <Text style={{color: `${colorText}`}}>
+            <Text style={{color: `${colorText}`, textAlign: 'center'}}>
                 {title}
             </Text>
         </View>
