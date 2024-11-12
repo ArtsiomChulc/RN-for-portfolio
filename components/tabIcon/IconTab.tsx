@@ -22,6 +22,7 @@ export default function IconTab({title, colorText, children}: Props) {
 
 const styles = StyleSheet.create({
     container: {
+        width: 100,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
