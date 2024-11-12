@@ -38,21 +38,21 @@ export default function RootLayout() {
                 headerShown: false,
                 title: 'Home',
                 tabBarIcon: ({color}) => (
-                    <IconTab title={'Home'} colorText={color}><MaterialIcons name="add-to-home-screen" size={24} color={color} /></IconTab>
+                    <IconTab title={'Домашняя'} colorText={color}><MaterialIcons name="add-to-home-screen" size={24} color={color} /></IconTab>
                 )
             }}/>
             <Tabs.Screen name='(games)' options={{
                 headerShown: false,
                 headerTitle: 'Games',
                 tabBarIcon: ({color}) => (
-                    <IconTab colorText={color} title={'Games'}><Entypo name="game-controller" size={24} color={color} /></IconTab>
+                    <IconTab colorText={color} title={'Игры'}><Entypo name="game-controller" size={24} color={color} /></IconTab>
                 )
             }}/>
             <Tabs.Screen name='description' options={{
                 headerShown: false,
                 title: 'Description',
                 tabBarIcon: ({color}) => (
-                    <IconTab title={'Description'} colorText={color}><FontAwesome6 name="clipboard-list" size={24} color={color} /></IconTab>
+                    <IconTab title={'Факты'} colorText={color}><FontAwesome6 name="clipboard-list" size={24} color={color} /></IconTab>
                 )
             }}/>
         </Tabs>
