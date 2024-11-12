@@ -4,9 +4,16 @@
     "slug": "game",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/image/mobile-game.png",
     "scheme": "game",
     "userInterfaceStyle": "automatic",
+    "expo": {
+      "extra": {
+        "eas": {
+          "projectId": "7a0da2c4-d1da-4819-ba04-daf5eedcd850"
+        }
+      }
+    },
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",

@@ -8,8 +8,8 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Modal from "@/components/modal/Modal";
 import {useUserName} from "@/helpers/getUserName";
 import {useAvatar} from "@/helpers/getAvaFromStorage";
-import {avatarsData} from "@/app/db/avatarsData/avatars";
 import ProfileBlock from "@/components/profileBlock/ProfileBlock";
+import {avatarsData} from "@/db/avatarsData/avatars";
 
 export default function Home() {
     const userName = useUserName();
@@ -39,7 +39,7 @@ export default function Home() {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <ProfileBlock src={avatarUser ? avatarUser : require('@/app/db/avatarsData/avatars/no_ava.png')} userName={name}/>
+                <ProfileBlock src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')} userName={name}/>
                 <View style={styles.wrapper}>
                     <ScrollView contentContainerStyle={styles.content}>
                         <Text style={styles.beginText}>

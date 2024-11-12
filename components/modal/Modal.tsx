@@ -4,8 +4,8 @@ import {useState} from 'react';
 import {StatusBar} from "expo-status-bar";
 import Button from "@/components/button/Button";
 import SwiperImage from "@/components/swiper/SwiperImage";
-import {avatarsData} from "@/app/db/avatarsData/avatars";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {avatarsData} from "@/db/avatarsData/avatars";
 
 type Props = {
     setNameLS: (name: string) => void;

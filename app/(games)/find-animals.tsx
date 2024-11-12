@@ -2,11 +2,11 @@ import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {COLORS} from "@/constants/colors";
-import {findAnimals} from "@/app/db";
 import Button from "@/components/button/Button";
 import {useState} from "react";
 import PopUp from "@/components/popUp/PopUp";
 import {useUserName} from "@/helpers/getUserName";
+import {findAnimals} from "@/db";
 
 
 export default function FindAnimals() {
