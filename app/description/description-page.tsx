@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: COLORS.grayOpacity,
         marginTop: 5,
+        marginBottom: 5,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: COLORS.gray,
@@ -166,10 +167,11 @@ const styles = StyleSheet.create({
     },
     content: {
         padding: 10,
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.backgroundAccordion,
         color: COLORS.gray,
-        borderWidth: 1,
-        borderColor: COLORS.gray,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: COLORS.backgroundOpacity,
     },
 });
 

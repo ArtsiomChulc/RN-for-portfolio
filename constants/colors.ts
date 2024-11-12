@@ -3,5 +3,6 @@ export const COLORS = {
     backgroundOpacity: 'rgba(104,103,102,0.4)',
     gray: '#CDCDE0',
     grayOpacity: 'rgba(205,205,224,0.4)',
-    buttonColor: '#FF9C01'
+    buttonColor: '#FF9C01',
+    backgroundAccordion: '#0b0a0a'
 }
