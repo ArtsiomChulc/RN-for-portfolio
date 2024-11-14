@@ -7,15 +7,13 @@
     "icon": "./assets/image/mobile-game.png",
     "scheme": "game",
     "userInterfaceStyle": "automatic",
-    "expo": {
-      "extra": {
-        "eas": {
-          "projectId": "7a0da2c4-d1da-4819-ba04-daf5eedcd850"
-        }
+    "extra": {
+      "eas": {
+        "projectId": "7a0da2c4-d1da-4819-ba04-daf5eedcd850"
       }
     },
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

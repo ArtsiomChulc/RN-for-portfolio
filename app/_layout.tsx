@@ -35,6 +35,13 @@ export default function RootLayout() {
                         <IconTab colorText={color} title={'Игры'}><Entypo name="game-controller" size={24} color={color} /></IconTab>
                     )
                 }}/>
+                <Tabs.Screen name='calculator' options={{
+                    headerShown: false,
+                    title: 'Calculator',
+                    tabBarIcon: ({color}) => (
+                        <IconTab title={'Калькулятор'} colorText={color}><FontAwesome6 name="clipboard-list" size={24} color={color} /></IconTab>
+                    )
+                }}/>
                 <Tabs.Screen name='description' options={{
                     headerShown: false,
                     title: 'Description',

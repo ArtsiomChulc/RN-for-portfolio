@@ -20,16 +20,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 40,
-        borderColor: COLORS.gray,
-        borderWidth: 1
     },
     textTitle: {
-        fontSize: 20,
+        fontSize: 18,
         color: COLORS.buttonColor,
         marginBottom: 15,
     },
     text: {
-        fontSize: 18,
+        fontSize: 14,
         color: COLORS.gray,
         marginBottom: 20,
     },

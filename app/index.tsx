@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         padding: 12,
-        height: '80%',
+        height: '75%',
         borderWidth: 1,
         borderColor: COLORS.buttonColor,
         borderRadius: 10,
