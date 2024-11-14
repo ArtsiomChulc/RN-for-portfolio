@@ -4,6 +4,7 @@ const config: ExpoConfig = {
     name: 'game',
     slug: 'game',
     scheme: 'your-scheme',
+    newArchEnabled: true,
     android: {
         package: 'com.artsiomchults.game',
     },

@@ -4,6 +4,7 @@
     "slug": "game",
     "version": "1.0.0",
     "orientation": "portrait",
+    "useBridge": true,
     "icon": "./assets/image/mobile-game.png",
     "scheme": "game",
     "userInterfaceStyle": "automatic",
@@ -21,6 +22,7 @@
       "supportsTablet": true
     },
     "android": {
+      "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#757578"
