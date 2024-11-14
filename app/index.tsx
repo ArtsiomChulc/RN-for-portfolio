@@ -1,4 +1,11 @@
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+    FlatList,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {useEffect, useState} from "react";
@@ -9,6 +16,7 @@ import ProfileBlock from "@/components/profileBlock/ProfileBlock";
 import {avatarsData} from "@/db/avatarsData/avatars";
 import {COLORS} from "@/constants/colors";
 import Modal from "@/components/modal/Modal";
+import {homeListText, HomeTextType} from "@/db/homeListText/homeText";
 
 export default function Home() {
 
@@ -39,40 +47,40 @@ export default function Home() {
         setUserName(null);
     };
 
+    const renderItem = ({ item }: { item: HomeTextType }) => (
+        <View>
+            {item.title}
+            {item.text}
+        </View>
+    );
+
     if (!userName) {
-        return <Modal setNameLS={setNameLS} />;
+        return <Modal setNameLS={setNameLS}/>;
     }
 
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <ProfileBlock src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')} userName={userName} />
+                <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
+                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'} style={{textAlign: 'center'}}/>
+                </TouchableOpacity>
+                <ProfileBlock
+                    src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')}
+                    userName={userName}/>
                 <View style={styles.wrapper}>
                     <ScrollView contentContainerStyle={styles.content}>
                         <Text style={styles.beginText}>
-                            В современном мире технологии играют ключевую роль в нашей
-                            жизни. Каждый день мы сталкиваемся с новыми инновациями,
-                            которые упрощают наши задачи и делают жизнь более удобной.
-                            Например, смартфоны стали незаменимыми помощниками, позволяя
-                            нам оставаться на связи и получать информацию в любое время.
-                            Социальные сети изменили способ общения, предоставляя
-                            платформы для обмена мнениями и идеями. Однако с ростом
-                            технологий возникают и новые вызовы, такие как защита личных
-                            данных и влияние на психическое здоровье. Важно находить
-                            баланс между использованием технологий и сохранением личного
-                            пространства. Мы должны помнить о том, что технологии — это
-                            инструмент, который должен служить нам, а не подчинять себе.
-                            Каждый из нас может внести свой вклад в создание более
-                            ответственного цифрового мира.
+                            "Природа для детей" — это увлекательное и познавательное
+                            мобильное приложение, которое предлагает детям уникальное
+                            сочетание игры и обучения. В приложении представлены две
+                            веселые детские игры, интересные факты о природе и простой в
+                            использовании калькулятор.
                         </Text>
-                        <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
-                            <AntDesign name="deleteuser" size={24} color={'#fff'} />
-                            <Text style={styles.removeText}>удалить пользователя</Text>
-                        </TouchableOpacity>
+                        <FlatList data={homeListText} renderItem={renderItem} keyExtractor={item => item.id.toString()}/>
                     </ScrollView>
                 </View>
             </SafeAreaView>
-            <StatusBar backgroundColor="#161622" style="light" />
+            <StatusBar backgroundColor="#161622" style="light"/>
         </>
     )
 }
@@ -93,22 +101,16 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     removeUser: {
+        width: 100,
+        textAlign: 'center',
         paddingVertical: 10,
         backgroundColor: COLORS.gray,
         borderRadius: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 10,
-    },
-    removeText: {
-        color: '#fff',
-        fontSize: 20,
-        textTransform: 'capitalize',
+        marginTop: 20,
     },
     wrapper: {
         padding: 12,
-        height: '85%',
+        height: '80%',
         borderWidth: 1,
         borderColor: COLORS.buttonColor,
         borderRadius: 10,
