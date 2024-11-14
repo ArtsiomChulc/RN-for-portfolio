@@ -47,10 +47,11 @@ export default function Modal({setNameLS}: Props) {
                             <TextInput
                                 value={inputValue}
                                 onChangeText={setInputValue}
+                                onBlur={() => setError('')}
                                 style={{
                                     paddingHorizontal: 10,
                                     paddingVertical: 16,
-                                    color: 'white',
+                                    color: 'black',
                                     fontSize: 20,
                                 }}
                                 placeholder='Введите Имя'
