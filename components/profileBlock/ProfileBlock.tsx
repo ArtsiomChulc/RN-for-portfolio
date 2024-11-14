@@ -2,7 +2,7 @@ import {View, Text, ImageSourcePropType, Image, StyleSheet} from 'react-native';
 import {COLORS} from "@/constants/colors";
 
 type Props = {
-    userName: string
+    userName: string | null;
     src: ImageSourcePropType
 }
 

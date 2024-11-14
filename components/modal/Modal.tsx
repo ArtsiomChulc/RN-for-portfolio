@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View, Text} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {COLORS} from "@/constants/colors";
 import {useState} from 'react';
 import {StatusBar} from "expo-status-bar";

@@ -1,26 +1,33 @@
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
-import {COLORS} from "@/constants/colors";
 import {StatusBar} from "expo-status-bar";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Modal from "@/components/modal/Modal";
-import {useUserName} from "@/helpers/getUserName";
 import {useAvatar} from "@/helpers/getAvaFromStorage";
 import ProfileBlock from "@/components/profileBlock/ProfileBlock";
 import {avatarsData} from "@/db/avatarsData/avatars";
+import {COLORS} from "@/constants/colors";
+import Modal from "@/components/modal/Modal";
 
 export default function Home() {
-    const userName = useUserName();
-    const avatarUser = useAvatar(avatarsData);
 
-    const [name, setName] = useState<string>(userName);
+    const [userName, setUserName] = useState<string | null>(null);
+    const avatarUser = useAvatar(avatarsData, userName);
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            const name = await AsyncStorage.getItem("name");
+            if (!name) setUserName(null)
+            setUserName(name);
+        };
+        fetchUserName();
+    }, []);
 
     const setNameLS = async (newName: string) => {
         try {
             await AsyncStorage.setItem("name", newName);
-            setName(newName);
+            setUserName(newName);
         } catch (error: any) {
             throw new Error(error.message);
         }
@@ -29,17 +36,17 @@ export default function Home() {
     const removeUser = async () => {
         await AsyncStorage.removeItem("name");
         await AsyncStorage.removeItem("avatarId");
-        setName('');
+        setUserName(null);
     };
 
-    if (!name) {
-        return <Modal setNameLS={setNameLS}/>;
+    if (!userName) {
+        return <Modal setNameLS={setNameLS} />;
     }
 
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <ProfileBlock src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')} userName={name}/>
+                <ProfileBlock src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')} userName={userName} />
                 <View style={styles.wrapper}>
                     <ScrollView contentContainerStyle={styles.content}>
                         <Text style={styles.beginText}>
@@ -59,15 +66,15 @@ export default function Home() {
                             ответственного цифрового мира.
                         </Text>
                         <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
-                            <AntDesign name="deleteuser" size={24} color={'#fff'}/>
+                            <AntDesign name="deleteuser" size={24} color={'#fff'} />
                             <Text style={styles.removeText}>удалить пользователя</Text>
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
             </SafeAreaView>
-            <StatusBar backgroundColor="#161622" style="light"/>
+            <StatusBar backgroundColor="#161622" style="light" />
         </>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
