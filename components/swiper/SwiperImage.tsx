@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import {avatarsDataType} from "@/app/db/avatarsData/avatars";
 import {COLORS} from "@/constants/colors";
 import {useState} from 'react';
+import {avatarsDataType} from "@/db/avatarsData/avatars";
 
 type Props = {
     sources: Array<avatarsDataType>,
