@@ -1,4 +1,12 @@
-import {DimensionValue, Pressable, StyleSheet, Text} from 'react-native';
+import {
+    DimensionValue,
+    PressableProps,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    Vibration,
+    ViewStyle
+} from 'react-native';
 import {COLORS} from "@/constants/colors";
 
 type Props = {
@@ -6,21 +14,27 @@ type Props = {
     title: string;
     widthPercent?: DimensionValue;
     backgroundColor?: string;
+    style?: PressableProps & ViewStyle
 }
 
-export default function Button({onClick, title, widthPercent = '100%', backgroundColor = COLORS.buttonColor}: Props) {
+export default function Button({onClick, title, widthPercent = '100%', backgroundColor = COLORS.buttonColor, style}: Props) {
+    const onClickHandler = () => {
+        if (onClick) {
+            onClick()
+        }
+        Vibration.vibrate()
+    }
     return (
-        <Pressable style={[styles.button, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClick}>
+        <TouchableOpacity activeOpacity={0.8} style={[styles.button, style, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClickHandler}>
             <Text style={styles.buttonText}>
                 {title}
             </Text>
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     button: {
-        width: '100%',
         backgroundColor: COLORS.buttonColor,
         borderRadius: 5,
         paddingHorizontal: 10,
