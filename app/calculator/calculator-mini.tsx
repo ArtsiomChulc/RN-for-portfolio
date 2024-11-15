@@ -10,8 +10,6 @@ const CalculatorMini: React.FC = () => {
 
     const [value, setValue] = React.useState('0');
 
-    console.log(value)
-
     return (
         <>
             <SafeAreaView style={styles.container}>

@@ -1,11 +1,4 @@
-import {
-    FlatList,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {useEffect, useState} from "react";
@@ -47,7 +40,7 @@ export default function Home() {
         setUserName(null);
     };
 
-    const renderItem = ({ item }: { item: HomeTextType }) => (
+    const renderItem = ({item}: { item: HomeTextType }) => (
         <View>
             {item.title}
             {item.text}
@@ -62,22 +55,24 @@ export default function Home() {
         <>
             <SafeAreaView style={styles.container}>
                 <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
-                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'} style={{textAlign: 'center'}}/>
+                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
+                               style={{textAlign: 'center'}}/>
                 </TouchableOpacity>
                 <ProfileBlock
                     src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')}
                     userName={userName}/>
-                <View style={styles.wrapper}>
-                    <ScrollView contentContainerStyle={styles.content}>
-                        <Text style={styles.beginText}>
-                            "Природа для детей" — это увлекательное и познавательное
-                            мобильное приложение, которое предлагает детям уникальное
-                            сочетание игры и обучения. В приложении представлены две
-                            веселые детские игры, интересные факты о природе и простой в
-                            использовании калькулятор.
-                        </Text>
-                        <FlatList data={homeListText} renderItem={renderItem} keyExtractor={item => item.id.toString()}/>
-                    </ScrollView>
+                <View style={styles.content}>
+                    <Text style={styles.beginText}>
+                        "Природа для детей" — это увлекательное и познавательное
+                        мобильное приложение, которое предлагает детям уникальное
+                        сочетание игры и обучения. В приложении представлены две
+                        веселые детские игры, интересные факты о природе и простой в
+                        использовании калькулятор.
+                    </Text>
+                    <View style={styles.wrapper}>
+                        <FlatList data={homeListText} renderItem={renderItem}
+                                  keyExtractor={item => item.id.toString()}/>
+                    </View>
                 </View>
             </SafeAreaView>
             <StatusBar backgroundColor="#161622" style="light"/>
@@ -101,7 +96,7 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     removeUser: {
-        width: 100,
+        width: 80,
         textAlign: 'center',
         paddingVertical: 10,
         backgroundColor: COLORS.gray,
@@ -110,9 +105,9 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         padding: 12,
-        height: '75%',
+        height: '50%',
         borderWidth: 1,
-        borderColor: COLORS.buttonColor,
+        borderColor: COLORS.grayOpacity,
         borderRadius: 10,
     },
     content: {
