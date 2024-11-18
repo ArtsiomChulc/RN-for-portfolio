@@ -84,7 +84,7 @@ const SECTIONS: Section[] = [
     }
 ];
 
-const Index: React.FC = () => {
+const Description: React.FC = () => {
     const [activeSections, setActiveSections] = useState<number[]>([]);
 
     const renderHeader = (section: Section) => {
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Index;
+export default Description;

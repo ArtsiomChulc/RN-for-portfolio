@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Button from "@/components/button/Button";
 import {COLORS} from "@/constants/colors";
 
-export default function Index() {
+export default function Calculator() {
     const [result, setResult] = useState<string>('');
     const [current, setCurrent] = useState<string>('');
 

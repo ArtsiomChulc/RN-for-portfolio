@@ -16,7 +16,7 @@ export default function FindAnimals() {
     const [popUpTitle, setPopUpTitle] = useState('');
     const [popUpMessage, setPopUpMessage] = useState('');
 
-    const userName = useUserName();
+    const {userName} = useUserName();
     const questionsQuantity = findAnimals.length;
 
     const currentAnimal = findAnimals[currentQuestionI]

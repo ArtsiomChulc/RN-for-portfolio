@@ -1,123 +1,122 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {SafeAreaView} from "react-native-safe-area-context";
-import {StatusBar} from "expo-status-bar";
-import {useEffect, useState} from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import {useAvatar} from "@/helpers/getAvaFromStorage";
-import ProfileBlock from "@/components/profileBlock/ProfileBlock";
+import {View, Text, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
+import {useState} from "react";
 import {avatarsData} from "@/db/avatarsData/avatars";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import SwiperImage from "@/components/swiper/SwiperImage";
+import Button from "@/components/button/Button";
+import {StatusBar} from "expo-status-bar";
 import {COLORS} from "@/constants/colors";
-import Modal from "@/components/modal/Modal";
-import {homeListText, HomeTextType} from "@/db/homeListText/homeText";
+import {Redirect} from "expo-router";
+import {useUserName} from "@/helpers/getUserName";
 
-export default function Home() {
 
-    const [userName, setUserName] = useState<string | null>(null);
-    const avatarUser = useAvatar(avatarsData, userName);
+export default function Welcome() {
+    const {userName, setUserName, isLoading} = useUserName()
+    const [inputValue, setInputValue] = useState('');
+    const [error, setError] = useState('');
 
-    useEffect(() => {
-        const fetchUserName = async () => {
-            const name = await AsyncStorage.getItem("name");
-            if (!name) setUserName(null)
-            setUserName(name);
-        };
-        fetchUserName();
-    }, []);
+    const handleSave = async () => {
+        if (!inputValue.trim()) {
+            setError('Имя не может быть пустым!!!')
+        }
+        await AsyncStorage.setItem("name", inputValue);
+        setUserName(inputValue);
+        setInputValue('');
+    };
 
-    const setNameLS = async (newName: string) => {
-        try {
-            await AsyncStorage.setItem("name", newName);
-            setUserName(newName);
-        } catch (error: any) {
-            throw new Error(error.message);
+    const selectHandlerAva = async (id: number) => {
+        const selectedAva = avatarsData.find((item) => item.id === id);
+        if (selectedAva) {
+            try {
+                await AsyncStorage.setItem('avatarId', JSON.stringify({id: selectedAva.id}));
+            } catch (error: any) {
+                console.error("Ошибка при сохранении ID аватара:", error.message);
+            }
+        } else {
+            console.warn("Аватар не найден для ID:", id);
         }
     };
 
-    const removeUser = async () => {
-        await AsyncStorage.removeItem("name");
-        await AsyncStorage.removeItem("avatarId");
-        setUserName(null);
-    };
+    if (isLoading) {
+        return <ActivityIndicator size={'large'} color={'#000'}/>;
+    }
 
-    const renderItem = ({item}: { item: HomeTextType }) => (
-        <View>
-            {item.title}
-            {item.text}
-        </View>
-    );
-
-    if (!userName) {
-        return <Modal setNameLS={setNameLS}/>;
+    if (userName) {
+        return <Redirect href={'home'}/>
     }
 
     return (
         <>
-            <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={styles.removeUser} onPress={removeUser}>
-                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
-                               style={{textAlign: 'center'}}/>
-                </TouchableOpacity>
-                <ProfileBlock
-                    src={avatarUser ? avatarUser : require('../db/avatarsData/avatars/no_ava.png')}
-                    userName={userName}/>
-                <View style={styles.content}>
-                    <Text style={styles.beginText}>
-                        "Природа для детей" — это увлекательное и познавательное
-                        мобильное приложение, которое предлагает детям уникальное
-                        сочетание игры и обучения. В приложении представлены две
-                        веселые детские игры, интересные факты о природе и простой в
-                        использовании калькулятор.
-                    </Text>
+            <View style={styles.modalContainer}>
+                <View style={styles.modal}>
                     <View style={styles.wrapper}>
-                        <FlatList data={homeListText} renderItem={renderItem}
-                                  keyExtractor={item => item.id.toString()}/>
+                        <Text style={styles.text}>Введите свое имя, чтобы
+                            открылась
+                            домашняя страница</Text>
+                        <View style={styles.input}>
+                            <TextInput
+                                value={inputValue}
+                                onChangeText={setInputValue}
+                                onBlur={() => setError('')}
+                                style={{
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 16,
+                                    color: 'black',
+                                    fontSize: 20,
+                                }}
+                                placeholder='Введите Имя'
+                            />
+                            <Text style={styles.error}>{error}</Text>
+                        </View>
+                        <SwiperImage sources={avatarsData}
+                                     onClick={selectHandlerAva}/>
+                        <Button onClick={handleSave} title={'Сохранить'}/>
                     </View>
                 </View>
-            </SafeAreaView>
+            </View>
             <StatusBar backgroundColor="#161622" style="light"/>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
-    container: {
+    modalContainer: {
         flex: 1,
-        width: '100%',
-        height: '100%',
-        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: COLORS.background,
-        color: '#CDCDE0',
     },
-    text: {
-        fontSize: 20,
-        color: COLORS.gray,
-        textAlign: 'center',
-        marginBottom: 15
-    },
-    removeUser: {
-        width: 80,
-        textAlign: 'center',
-        paddingVertical: 10,
-        backgroundColor: COLORS.gray,
-        borderRadius: 40,
-        marginTop: 20,
+    modal: {
+        width: '80%',
     },
     wrapper: {
-        padding: 12,
-        height: '50%',
-        borderWidth: 1,
-        borderColor: COLORS.grayOpacity,
-        borderRadius: 10,
+        width: '100%',
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 10,
     },
-    content: {
-        padding: 20,
-        flexGrow: 1,
-    },
-    beginText: {
-        fontSize: 20,
-        textAlign: 'left',
+    text: {
         color: COLORS.gray,
-        marginBottom: 20
+        fontSize: 20,
+        marginBottom: 20,
+        textAlign: 'center',
+        lineHeight: 32,
+    },
+    input: {
+        width: '100%',
+        backgroundColor: '#cdcbcb',
+        borderRadius: 5,
+        marginBottom: 30,
+        position: 'relative'
+    },
+    error: {
+        color: 'red',
+        position: 'absolute',
+        bottom: -20,
+    },
+    loading: {
+        fontSize: 32,
+        color: COLORS.gray,
+        textAlign: 'center'
     }
 });
