@@ -22,7 +22,7 @@ export default function Button({onClick, title, widthPercent = '100%', backgroun
         if (onClick) {
             onClick()
         }
-        Vibration.vibrate()
+        Vibration.vibrate(100)
     }
     return (
         <TouchableOpacity activeOpacity={0.8} style={[styles.button, style, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClickHandler}>

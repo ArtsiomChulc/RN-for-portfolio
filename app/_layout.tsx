@@ -16,7 +16,8 @@ export default function RootLayout() {
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     backgroundColor: "#161622",
-                    borderTopColor: "transparent",
+                    borderTopColor: "#161622",
+                    borderTopWidth: 0,
                     height: 84,
                     justifyContent: "center"
                 },
@@ -28,21 +29,21 @@ export default function RootLayout() {
                         <IconTab title={'Домашняя'} colorText={color}><MaterialIcons name="add-to-home-screen" size={24} color={color} /></IconTab>
                     )
                 }}/>
-                <Tabs.Screen name='(games)' options={{
+                <Tabs.Screen name='(tabs)/(games)' options={{
                     headerShown: false,
                     headerTitle: 'Games',
                     tabBarIcon: ({color}) => (
                         <IconTab colorText={color} title={'Игры'}><Entypo name="game-controller" size={24} color={color} /></IconTab>
                     )
                 }}/>
-                <Tabs.Screen name='calculator' options={{
+                <Tabs.Screen name='(tabs)/calculator' options={{
                     headerShown: false,
                     title: 'Calculator',
                     tabBarIcon: ({color}) => (
                         <IconTab title={'Калькулятор'} colorText={color}><FontAwesome6 name="clipboard-list" size={24} color={color} /></IconTab>
                     )
                 }}/>
-                <Tabs.Screen name='description' options={{
+                <Tabs.Screen name='(tabs)/description' options={{
                     headerShown: false,
                     title: 'Description',
                     tabBarIcon: ({color}) => (

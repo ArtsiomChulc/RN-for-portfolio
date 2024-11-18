@@ -2,22 +2,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 
 export const useUserName = () => {
-    const [name, setName] = useState<string>('');
+    const [userName, setUserName] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUserName = async () => {
-            try {
-                const storedName = await AsyncStorage.getItem("name");
-                if (storedName !== null) {
-                    setName(storedName);
-                }
-            } catch (error: any) {
-                console.error("Ошибка при получении имени пользователя:", error.message);
-            }
+            const name = await AsyncStorage.getItem("name");
+            if (!name) setUserName(null)
+            setUserName(name);
         };
 
         fetchUserName();
-    }, []);
+    }, [userName, setUserName]);
 
-    return name;
+    return {userName, setUserName};
 };

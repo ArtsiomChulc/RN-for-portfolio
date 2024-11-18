@@ -15,10 +15,10 @@ export default function Page() {
         <>
             <SafeAreaView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.wrapper}>
-                    <CardGame src={require('../assets/images/animalsScreen.webp')}
+                    <CardGame src={require('../../../assets/images/animalsScreen.webp')}
                               resizeMode={'cover'} buttonTitle={'Начать узнавать' +
                         ' зверей'} onClick={getAnimalsGame}/>
-                    <CardGame src={require('../assets/images/findCouple.webp')}
+                    <CardGame src={require('../../../assets/images/findCouple.webp')}
                               resizeMode={'cover'} buttonTitle={'Начать искать пару'} onClick={getCoupleGame}/>
                 </ScrollView>
             </SafeAreaView>
