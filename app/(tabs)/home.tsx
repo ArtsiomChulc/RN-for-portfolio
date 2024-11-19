@@ -1,11 +1,4 @@
-import {
-    ActivityIndicator,
-    FlatList,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {useEffect, useState} from "react";
@@ -17,11 +10,8 @@ import {avatarsData} from "@/db/avatarsData/avatars";
 import {COLORS} from "@/constants/colors";
 import {homeListText, HomeTextType} from "@/db/homeListText/homeText";
 import {router} from "expo-router";
-import {useUserName} from "@/helpers/getUserName";
 
 export default function Home() {
-
-    const {isLoading} = useUserName()
 
     const [userName, setUserName] = useState<string | null>(null);
     const avatarUser = useAvatar(avatarsData, userName);
@@ -49,9 +39,6 @@ export default function Home() {
             {item.text}
         </View>
     );
-    if (isLoading) {
-        return <ActivityIndicator size={'large'} color={'#000'} />;
-    }
 
     return (
         <>

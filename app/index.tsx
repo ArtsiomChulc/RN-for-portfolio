@@ -11,7 +11,7 @@ import {useUserName} from "@/helpers/getUserName";
 
 
 export default function Welcome() {
-    const {userName, setUserName, isLoading} = useUserName()
+    const {userName, setUserName} = useUserName()
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState('');
 
@@ -36,10 +36,6 @@ export default function Welcome() {
             console.warn("Аватар не найден для ID:", id);
         }
     };
-
-    if (isLoading) {
-        return <ActivityIndicator size={'large'} color={'#000'}/>;
-    }
 
     if (userName) {
         return <Redirect href={'home'}/>
