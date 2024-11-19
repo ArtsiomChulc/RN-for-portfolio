@@ -8,6 +8,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "game",
     "userInterfaceStyle": "automatic",
+    "owner": "artsiomchults",
     "extra": {
       "eas": {
         "projectId": "7a0da2c4-d1da-4819-ba04-daf5eedcd850"
