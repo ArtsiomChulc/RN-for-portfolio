@@ -45,8 +45,7 @@ export default function Home() {
             <SafeAreaView style={styles.container}>
                 <><TouchableOpacity style={styles.removeUser}
                                     onPress={removeUser}>
-                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
-                               style={{textAlign: 'center'}}/>
+                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'} style={styles.deleteUserIcon}/>
                 </TouchableOpacity><ProfileBlock
                     src={avatarUser ? avatarUser : require('../../db/avatarsData/avatars/no_ava.png')}
                     userName={userName}/><View style={styles.content}>
@@ -112,6 +111,9 @@ const styles = StyleSheet.create({
     loading: {
         fontSize: 32,
         color: COLORS.gray,
+        textAlign: 'center'
+    },
+    deleteUserIcon: {
         textAlign: 'center'
     }
 });
