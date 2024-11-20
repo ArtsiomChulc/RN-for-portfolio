@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {useEffect, useState} from "react";
@@ -43,25 +43,22 @@ export default function Home() {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <><TouchableOpacity style={styles.removeUser}
-                                    onPress={removeUser}>
-                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'} style={styles.deleteUserIcon}/>
-                </TouchableOpacity><ProfileBlock
-                    src={avatarUser ? avatarUser : require('../../db/avatarsData/avatars/no_ava.png')}
-                    userName={userName}/><View style={styles.content}>
-                    <Text style={styles.beginText}>
-                        "Природа для детей" — это увлекательное и познавательное
-                        мобильное приложение, которое предлагает детям уникальное
-                        сочетание игры и обучения. В приложении представлены две
-                        веселые детские игры, интересные факты о природе и простой
-                        в
-                        использовании калькулятор.
-                    </Text>
-                    <View style={styles.wrapper}>
-                        <FlatList data={homeListText} renderItem={renderItem}
-                                  keyExtractor={item => item.id.toString()}/>
+                <>
+                    <TouchableOpacity style={styles.removeUser}
+                                      onPress={removeUser}>
+                        <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
+                                   style={styles.deleteUserIcon}/>
+                    </TouchableOpacity>
+                    <ProfileBlock
+                        src={avatarUser ? avatarUser : require('../../db/avatarsData/avatars/no_ava.png')}
+                        userName={userName}/>
+                    <View style={styles.content}>
+                        <View style={styles.wrapper}>
+                            <FlatList data={homeListText} renderItem={renderItem}
+                                      keyExtractor={item => item.id.toString()}/>
+                        </View>
                     </View>
-                </View></>
+                </>
             </SafeAreaView>
             <StatusBar backgroundColor="#161622" style="light"/>
         </>
@@ -85,15 +82,17 @@ const styles = StyleSheet.create({
     },
     removeUser: {
         width: 80,
-        textAlign: 'center',
+        position: 'absolute',
+        top: 40,
+        left: 20,
         paddingVertical: 10,
         backgroundColor: COLORS.gray,
         borderRadius: 40,
-        marginTop: 20,
+        marginTop: 10,
     },
     wrapper: {
         padding: 12,
-        height: '50%',
+        height: '85%',
         borderWidth: 1,
         borderColor: COLORS.grayOpacity,
         borderRadius: 10,

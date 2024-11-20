@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Button from "@/components/button/Button";
 import {COLORS} from "@/constants/colors";
 
@@ -34,41 +34,43 @@ export default function Calculator() {
     );
 
     return (
-        <View style={styles.container}>
-            <View style={styles.resultContainer}>
-                <Text style={styles.currentText}>{current}</Text>
-                <Text style={styles.resultText}>{result}</Text>
+        <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.resultContainer}>
+                    <Text style={styles.currentText}>{current}</Text>
+                    <Text style={styles.resultText}>{result}</Text>
+                </View>
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.row}>
+                        {renderButton('1')}
+                        {renderButton('2')}
+                        {renderButton('3')}
+                        {renderButton('-')}
+                    </View>
+                    <View style={styles.row}>
+                        {renderButton('4')}
+                        {renderButton('5')}
+                        {renderButton('6')}
+                        {renderButton('*')}
+                    </View>
+                    <View style={styles.row}>
+                        {renderButton('7')}
+                        {renderButton('8')}
+                        {renderButton('9')}
+                        {renderButton('/')}
+                    </View>
+                    <View style={styles.row}>
+                        {renderButton('0')}
+                        {renderButton('.')}
+                        {renderButton('=')}
+                        {renderButton('+')}
+                    </View>
+                    <View style={[styles.row, styles.clearBtn]}>
+                        {renderButton('C')}
+                    </View>
+                </View>
             </View>
-            <View style={styles.buttonsContainer}>
-                <View style={styles.row}>
-                    {renderButton('1')}
-                    {renderButton('2')}
-                    {renderButton('3')}
-                    {renderButton('-')}
-                </View>
-                <View style={styles.row}>
-                    {renderButton('4')}
-                    {renderButton('5')}
-                    {renderButton('6')}
-                    {renderButton('*')}
-                </View>
-                <View style={styles.row}>
-                    {renderButton('7')}
-                    {renderButton('8')}
-                    {renderButton('9')}
-                    {renderButton('/')}
-                </View>
-                <View style={styles.row}>
-                    {renderButton('0')}
-                    {renderButton('.')}
-                    {renderButton('=')}
-                    {renderButton('+')}
-                </View>
-                <View style={[styles.row, styles.clearBtn]}>
-                    {renderButton('C')}
-                </View>
-            </View>
-        </View>
+        </ScrollView>
     );
 }
 

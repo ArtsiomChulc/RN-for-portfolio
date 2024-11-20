@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        gap: 30,
-        marginBottom: 20
+        gap: 20,
+        marginBottom: 10
     },
     text: {
         fontSize: 20,
         color: COLORS.gray,
         textAlign: 'center',
-        marginBottom: 15
+        // marginBottom: 15
     },
     img: {
         width: 60,

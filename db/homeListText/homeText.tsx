@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 40,
     },
+    main_title_color: {
+        backgroundColor: COLORS.grayOpacity,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+    },
     textTitle: {
         fontSize: 18,
         color: COLORS.buttonColor,
@@ -29,6 +35,12 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 14,
         color: COLORS.gray,
+        marginBottom: 20,
+    },
+    main_text: {
+        fontSize: 24,
+        color: COLORS.grayOpacity,
+        textAlign: 'center',
         marginBottom: 20,
     },
     textTitle_color: {
@@ -40,6 +52,18 @@ const styles = StyleSheet.create({
 })
 
 export const homeListText: HomeTextType[] = [
+    {
+        id: 123,
+        title: <Text style={[styles.title, styles.main_title_color]}>"Природа для детей"</Text>,
+        text: <>
+            <Text style={styles.main_text}>это увлекательное и познавательное
+                мобильное приложение, которое предлагает детям уникальное
+                сочетание игры и обучения. В приложении представлены две
+                веселые детские игры, интересные факты о природе и простой
+                в
+                использовании калькулятор.</Text>
+        </>
+    },
     {
         id: 1,
         title: <Text style={[styles.title, styles.title_color]}>Игры для детей:</Text>,
