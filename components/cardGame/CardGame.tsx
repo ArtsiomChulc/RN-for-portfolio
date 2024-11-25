@@ -1,5 +1,12 @@
-import {Image, ImageSourcePropType, StyleSheet, View} from 'react-native';
+import {
+    Image,
+    ImageSourcePropType, StyleProp,
+    StyleSheet,
+    useWindowDimensions,
+    View, ViewStyle
+} from 'react-native';
 import Button from "@/components/button/Button";
+import {COLORS} from "@/constants/colors";
 
 type Props = {
     src: ImageSourcePropType;
@@ -9,35 +16,38 @@ type Props = {
 }
 
 export default function CardGame({src, resizeMode, buttonTitle, onClick}: Props) {
+    const {height, width} = useWindowDimensions();
+    const isPortrait = height > width;
+
+    const containerStyle: StyleProp<ViewStyle> = {
+        width: isPortrait ? '100%' : '45%',
+        height: isPortrait ? height/3.6 : height/2,
+        borderRadius: 20,
+        overflow: 'hidden',
+        position: 'relative'
+    }
+
     return (
-        <View style={styles.imageWrap}>
+        <View style={containerStyle}>
             <Image
                 style={styles.image}
                 resizeMode={resizeMode}
                 source={src}
             />
             <View style={styles.absolute}>
-                <Button title={buttonTitle} onClick={onClick}/>
+                <Button colorText={COLORS.white} title={buttonTitle} onClick={onClick} widthPercent={'80%'} backgroundColor={COLORS.blackOpacity} />
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    imageWrap: {
-        width: '100%',
-        height: 300,
-        borderRadius: 20,
-        overflow: 'hidden',
-        position: 'relative'
-    },
     image: {
         width: '100%',
         height: '100%',
         borderRadius: 15,
     },
     absolute: {
-        width: '80%',
         position: 'absolute',
         bottom: 10,
         left: 15,
