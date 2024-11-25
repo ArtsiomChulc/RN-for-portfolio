@@ -11,6 +11,7 @@ import {generateCards} from "@/helpers/generateCards";
 import {useEffect, useState} from "react";
 import Button from "@/components/button/Button";
 import PopUp from "@/components/popUp/PopUp";
+import {SafeAreaView} from "react-native-safe-area-context";
 // Импортируем хуки useEffect и useState из React для работы с состоянием и побочными эффектами.
 
 export default function FindCouple() {
@@ -102,14 +103,12 @@ export default function FindCouple() {
     };
 
     return (
-        <>
-            <PopUp visible={gameOver} title={"Поздравляю!!!"} message={"Ты умница..."} onClose={resetGame}/>
-            <GameBoard style={{ paddingTop: '25%' }}>
-                <WrapperCards contentContainerStyle={{
-                    flexGrow: 1, alignItems: 'center',
-                    justifyContent: 'center', gap: 10,
-                    flexDirection: 'row', flexWrap: 'wrap'
-                }}>
+        <SafeAreaView style={{flexGrow: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <PopUp visible={gameOver} title={"Поздравляю!!!"} message={"Так держать..."}
+                   onClose={resetGame}/>
+            <GameBoard
+                contentContainerStyle={{alignItems: "center", justifyContent: "center"}}>
+                <WrapperCards>
                     {cards.map((card, index) => (
                         <CardMemoryGame
                             key={card.id}
@@ -119,7 +118,7 @@ export default function FindCouple() {
                         />
                     ))}
                 </WrapperCards>
-                <Button title={'Начать сначала'} onClick={resetGame}/>
+                <Button title={'Начать сначала'} onClick={resetGame} widthPercent={'50%'}/>
             </GameBoard>
             {/* Выводим компонент GameBoard, который отображает доску для игры.
                 Для каждой карты создаём компонент CardMemoryGame и передаем:
@@ -129,25 +128,28 @@ export default function FindCouple() {
                  - обработчик нажатия, вызывающий handleCardPress с индексом карты.
             */}
 
-            <StatusBar backgroundColor="#161622" style="light" />
-        </>
+            <StatusBar backgroundColor="#161622" style="light"/>
+        </SafeAreaView>
     );
 };
 
-const GameBoard = styled.SafeAreaView`
+const GameBoard = styled.ScrollView`
     height: 100%;
     width: 100%;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    padding-top: 35px;
+    padding-bottom: 60px;
     background-color: ${COLORS.background};
     color: #CDCDE0;
 `;
 
-const WrapperCards = styled.ScrollView`
-    width: 90%;
+const WrapperCards = styled.View`
+    width: 100%;
+    //height: 50%;
     padding: 15px;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 `
 
 // Стилизованный компонент GameBoard:
