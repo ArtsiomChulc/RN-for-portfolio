@@ -15,9 +15,10 @@ type Props = {
     widthPercent?: DimensionValue;
     backgroundColor?: string;
     style?: PressableProps & ViewStyle
+    colorText?: string
 }
 
-export default function Button({onClick, title, widthPercent = '100%', backgroundColor = COLORS.buttonColor, style}: Props) {
+export default function Button({onClick, title, widthPercent = '100%', backgroundColor = COLORS.buttonColor, style, colorText = COLORS.background}: Props) {
     const onClickHandler = () => {
         if (onClick) {
             onClick()
@@ -26,7 +27,7 @@ export default function Button({onClick, title, widthPercent = '100%', backgroun
     }
     return (
         <TouchableOpacity activeOpacity={0.8} style={[styles.button, style, { width: widthPercent, backgroundColor: backgroundColor }]} onPress={onClickHandler}>
-            <Text style={styles.buttonText}>
+            <Text style={[styles.buttonText, {color: colorText}]}>
                 {title}
             </Text>
         </TouchableOpacity>
