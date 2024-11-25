@@ -1,4 +1,11 @@
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+    useWindowDimensions,
+    ViewStyle, StyleProp
+} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {useEffect, useState} from "react";
@@ -12,6 +19,8 @@ import {homeListText, HomeTextType} from "@/db/homeListText/homeText";
 import {router} from "expo-router";
 
 export default function Home() {
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height > width;
 
     const [userName, setUserName] = useState<string | null>(null);
     const avatarUser = useAvatar(avatarsData, userName);
@@ -40,25 +49,41 @@ export default function Home() {
         </View>
     );
 
+    const containerStyle: StyleProp<ViewStyle> = {
+        flexDirection: width > 500 ? 'row' : 'column',
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        padding: 10,
+        backgroundColor: COLORS.background,
+    }
+
+    const wrapperStyle: StyleProp<ViewStyle> = {
+        padding: 12,
+        height: isPortrait ? '85%' : '100%',
+        width: isPortrait ? '100%' : '80%',
+        borderWidth: 1,
+        borderColor: COLORS.grayOpacity,
+        borderRadius: 10,
+    }
+
     return (
         <>
-            <SafeAreaView style={styles.container}>
-                <>
-                    <TouchableOpacity style={styles.removeUser}
-                                      onPress={removeUser}>
-                        <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
-                                   style={styles.deleteUserIcon}/>
-                    </TouchableOpacity>
-                    <ProfileBlock
-                        src={avatarUser ? avatarUser : require('../../db/avatarsData/avatars/no_ava.png')}
-                        userName={userName}/>
-                    <View style={styles.content}>
-                        <View style={styles.wrapper}>
-                            <FlatList data={homeListText} renderItem={renderItem}
-                                      keyExtractor={item => item.id.toString()}/>
-                        </View>
+            <SafeAreaView style={containerStyle}>
+                <TouchableOpacity style={styles.removeUser}
+                                  onPress={removeUser}>
+                    <AntDesign name="deleteuser" size={28} color={'#3c3c3a'}
+                               style={styles.deleteUserIcon}/>
+                </TouchableOpacity>
+                <ProfileBlock
+                    src={avatarUser ? avatarUser : require('../../db/avatarsData/avatars/no_ava.png')}
+                    userName={userName}/>
+                <View style={styles.content}>
+                    <View style={wrapperStyle}>
+                        <FlatList data={homeListText} renderItem={renderItem}
+                                  keyExtractor={item => item.id.toString()}/>
                     </View>
-                </>
+                </View>
             </SafeAreaView>
             <StatusBar backgroundColor="#161622" style="light"/>
         </>
@@ -66,14 +91,6 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        padding: 10,
-        backgroundColor: COLORS.background,
-        color: '#CDCDE0',
-    },
     text: {
         fontSize: 20,
         color: COLORS.gray,
@@ -83,22 +100,15 @@ const styles = StyleSheet.create({
     removeUser: {
         width: 80,
         position: 'absolute',
-        top: 40,
+        top: 50,
         left: 20,
         paddingVertical: 10,
         backgroundColor: COLORS.gray,
         borderRadius: 40,
         marginTop: 10,
     },
-    wrapper: {
-        padding: 12,
-        height: '85%',
-        borderWidth: 1,
-        borderColor: COLORS.grayOpacity,
-        borderRadius: 10,
-    },
     content: {
-        padding: 20,
+        padding: 10,
         flexGrow: 1,
     },
     beginText: {

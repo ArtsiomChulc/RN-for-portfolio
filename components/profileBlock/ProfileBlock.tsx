@@ -11,8 +11,9 @@ export default function ProfileBlock({userName, src}: Props) {
         <View style={styles.container}>
             <Image style={styles.img} source={src} resizeMode={'contain'}/>
             <Text style={styles.text}>
-                Привет: {userName}!
+                Привет:
             </Text>
+            <Text style={styles.userNameText} numberOfLines={1} ellipsizeMode="tail">{userName}!</Text>
         </View>
     );
 };
@@ -21,16 +22,20 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         flexDirection: 'row',
-        gap: 20,
+        gap: 10,
         marginBottom: 10
     },
     text: {
         fontSize: 20,
         color: COLORS.gray,
         textAlign: 'center',
-        // marginBottom: 15
+    },
+    userNameText: {
+        fontSize: 20,
+        color: COLORS.gray,
+        maxWidth: 85
     },
     img: {
         width: 60,
