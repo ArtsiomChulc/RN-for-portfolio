@@ -8,5 +8,6 @@ export const COLORS = {
     buttonCalc: '#dfc3c3',
     white: '#ffffff',
     black: '#000000',
+    link: '#2c51d8',
     blackOpacity: 'rgba(0,0,0,0.7)',
 }
