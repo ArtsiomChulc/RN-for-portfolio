@@ -12,12 +12,16 @@ import {useEffect, useState} from "react";
 import Button from "@/components/button/Button";
 import PopUp from "@/components/popUp/PopUp";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {ScrollView, useWindowDimensions, View, StyleSheet} from "react-native";
 // Импортируем хуки useEffect и useState из React для работы с состоянием и побочными эффектами.
 
 export default function FindCouple() {
     // Определяем функциональный компонент FindCouple для игры "Найди пару".
 
-    const gameArray = ['🐵', '🐒', '🦍', '🦧', '🐶', '🐕'];
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height > width;
+
+    const gameArray = ['🐵', '🐒', '🦍', '🐇', '🐂', '🐕'];
     // Инициализируем массив gameArray с уникальными значениями эмодзи, которые будут использоваться в игре.
 
     const [cards, setCards] = useState(generateCards(gameArray));
@@ -106,20 +110,21 @@ export default function FindCouple() {
         <SafeAreaView style={{flexGrow: 1, alignItems: 'center', justifyContent: 'center'}}>
             <PopUp visible={gameOver} title={"Поздравляю!!!"} message={"Так держать..."}
                    onClose={resetGame}/>
-            <GameBoard
-                contentContainerStyle={{alignItems: "center", justifyContent: "center"}}>
-                <WrapperCards>
-                    {cards.map((card, index) => (
-                        <CardMemoryGame
-                            key={card.id}
-                            value={card.value}
-                            flipped={card.flipped || card.matched}
-                            onPressHandler={() => handleCardPress(index)}
-                        />
-                    ))}
-                </WrapperCards>
-                <Button title={'Начать сначала'} onClick={resetGame} widthPercent={'50%'}/>
-            </GameBoard>
+            <ScrollView contentContainerStyle={style.gameBoardContainer} style={style.gameBoard}>
+                <View style={{width:'100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                    <Wrapper isPortrait={isPortrait}>
+                        {cards.map((card, index) => (
+                            <CardMemoryGame
+                                key={card.id}
+                                value={card.value}
+                                flipped={card.flipped || card.matched}
+                                onPressHandler={() => handleCardPress(index)}
+                            />
+                        ))}
+                    </Wrapper>
+                    <Button title={'Начать сначала'} onClick={resetGame} widthPercent={isPortrait ? '50%' : '20%'}/>
+                </View>
+            </ScrollView>
             {/* Выводим компонент GameBoard, который отображает доску для игры.
                 Для каждой карты создаём компонент CardMemoryGame и передаем:
                  - ключ card.id
@@ -133,23 +138,36 @@ export default function FindCouple() {
     );
 };
 
-const GameBoard = styled.ScrollView`
-    height: 100%;
-    width: 100%;
-    flex-direction: row;
-    padding-top: 35px;
-    padding-bottom: 60px;
-    background-color: ${COLORS.background};
-    color: #CDCDE0;
-`;
+const style = StyleSheet.create({
+    gameBoard: {
+        height: '100%',
+        width: '100%',
+        flexDirection: 'row',
+        alignContent: 'center',
+        paddingTop: 10,
+        paddingBottom: 20,
+        backgroundColor: COLORS.background,
+        color: COLORS.gray,
+    },
+    gameBoardContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
+    }
+})
 
-const WrapperCards = styled.View`
-    width: 100%;
-    //height: 50%;
-    padding: 15px;
+
+const Wrapper = styled.View<{isPortrait: boolean}>`
+    width: ${(props) => props.isPortrait ? '330px' : '720px'};
+    height: ${(props) => props.isPortrait ? '80%' : 'auto'};
+    margin-bottom: ${({isPortrait}) => isPortrait ? '0' : '10px'};
+    margin-top: ${({isPortrait}) => isPortrait ? '0' : '15px'};
+    padding: 10px;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 1px;
 `
 
 // Стилизованный компонент GameBoard:
