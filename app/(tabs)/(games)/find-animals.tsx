@@ -14,6 +14,7 @@ import {useState} from "react";
 import PopUp from "@/components/popUp/PopUp";
 import {useUserName} from "@/helpers/getUserName";
 import {findAnimals} from "@/db";
+import GoBack from "@/components/goBack/GoBack";
 
 
 export default function FindAnimals() {
@@ -106,6 +107,7 @@ export default function FindAnimals() {
     const getQuestion = () => {
         return <>
             <View>
+                {!isPortrait && <GoBack href={'/all-games'} style={styles.goBack}/>}
                 <Text style={[styles.text, textStyle]}>Вопрос № {currentQuestionI + 1}</Text>
                 <Text style={[styles.text, textStyle]}>Отгадано: {score}</Text>
                 <Text style={[styles.text, textStyle]}>Всего вопросов: {questionsQuantity}</Text>
@@ -116,6 +118,7 @@ export default function FindAnimals() {
             </View>
             <View style={wrapBtnsStyle}>
                 {answersButtons}
+                {isPortrait && <GoBack href={'/all-games'} style={styles.goBackText} isText={true} text={'Вернуться на главную'}/>}
             </View>
         </>
     }
@@ -141,7 +144,7 @@ export default function FindAnimals() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        padding: 5,
         backgroundColor: COLORS.background,
         color: COLORS.gray
     },
@@ -163,5 +166,22 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.gray,
         width: '100%',
         height: '100%',
+    },
+    goBack: {
+        borderWidth: 1,
+        borderColor: COLORS.grayOpacity,
+        borderRadius: 50,
+        padding: 8,
+        justifyContent: 'flex-start',
+        position: 'absolute',
+        top: 40,
+        left: -100,
+    },
+    goBackText: {
+        fontSize: 18,
+        color: COLORS.link,
+        position: 'absolute',
+        bottom: -60,
+        left: '24%',
     }
 });
