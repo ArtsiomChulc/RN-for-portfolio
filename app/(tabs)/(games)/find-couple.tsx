@@ -13,6 +13,8 @@ import Button from "@/components/button/Button";
 import PopUp from "@/components/popUp/PopUp";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {ScrollView, useWindowDimensions, View, StyleSheet} from "react-native";
+import {Link} from "expo-router";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 // Импортируем хуки useEffect и useState из React для работы с состоянием и побочными эффектами.
 
 export default function FindCouple() {
@@ -117,12 +119,16 @@ export default function FindCouple() {
                             <CardMemoryGame
                                 key={card.id}
                                 value={card.value}
+                                isPortrait={isPortrait}
                                 flipped={card.flipped || card.matched}
                                 onPressHandler={() => handleCardPress(index)}
                             />
                         ))}
                     </Wrapper>
-                    <Button title={'Начать сначала'} onClick={resetGame} widthPercent={isPortrait ? '50%' : '20%'}/>
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                        <Link href={'/all-games'} style={style.goBack}><MaterialIcons name="arrow-back" size={34} color={COLORS.white} /></Link>
+                        <Button title={'Начать сначала'} onClick={resetGame} widthPercent={isPortrait ? '50%' : '24%'}/>
+                    </View>
                 </View>
             </ScrollView>
             {/* Выводим компонент GameBoard, который отображает доску для игры.
@@ -153,12 +159,22 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%'
+    },
+    goBack: {
+        borderWidth: 1,
+        borderColor: COLORS.grayOpacity,
+        borderRadius: 50,
+        padding: 10,
+        justifyContent: 'flex-start',
+        position: 'absolute',
+        top: 0,
+        left: -75,
     }
 })
 
 
 const Wrapper = styled.View<{isPortrait: boolean}>`
-    width: ${(props) => props.isPortrait ? '330px' : '720px'};
+    width: ${(props) => props.isPortrait ? '330px' : '540px'};
     height: ${(props) => props.isPortrait ? '80%' : 'auto'};
     margin-bottom: ${({isPortrait}) => isPortrait ? '0' : '10px'};
     margin-top: ${({isPortrait}) => isPortrait ? '0' : '15px'};
@@ -167,7 +183,7 @@ const Wrapper = styled.View<{isPortrait: boolean}>`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 1px;
+    gap: ${(props) => props.isPortrait ? '1px' : '5px'};
 `
 
 // Стилизованный компонент GameBoard:

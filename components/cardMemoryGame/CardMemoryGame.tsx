@@ -7,12 +7,14 @@ type CardMemoryGameType = {
     value?: string;
     flipped: boolean;
     onPressHandler?: () => void;
+    isPortrait: boolean
 };
 
 export default function CardMemoryGame({
        flipped,
        value,
        onPressHandler,
+       isPortrait
 }: CardMemoryGameType) {
     const rotateAnim = useRef(new Animated.Value(0)).current;
 
@@ -31,7 +33,7 @@ export default function CardMemoryGame({
 
     return (
         <TouchableOpacity onPress={onPressHandler}>
-            <CardContainer style={{ transform: [{ rotateY: rotateInterpolate }] }}>
+            <CardContainer isPortrait={isPortrait} style={{ transform: [{ rotateY: rotateInterpolate }] }}>
                 <CardFace flipped={flipped} style={{ opacity: flipped ? 1 : 0 }}>
                     <CardValue>{value || ''}</CardValue>
                 </CardFace>
@@ -43,12 +45,12 @@ export default function CardMemoryGame({
     );
 }
 
-const CardContainer = styled(Animated.View)`
+const CardContainer = styled(Animated.View)<{isPortrait: boolean}>`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: ${({isPortrait}) => isPortrait ? '100px' : '80px'};
+    height: ${({isPortrait}) => isPortrait ? '100px' : '80px'};
     perspective: 1000px;
 `;
 
