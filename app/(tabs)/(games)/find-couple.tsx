@@ -12,9 +12,8 @@ import {useEffect, useState} from "react";
 import Button from "@/components/button/Button";
 import PopUp from "@/components/popUp/PopUp";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {ScrollView, useWindowDimensions, View, StyleSheet} from "react-native";
-import {Link} from "expo-router";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import {ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
+import GoBack from "@/components/goBack/GoBack";
 // Импортируем хуки useEffect и useState из React для работы с состоянием и побочными эффектами.
 
 export default function FindCouple() {
@@ -126,7 +125,7 @@ export default function FindCouple() {
                         ))}
                     </Wrapper>
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <Link href={'/all-games'} style={style.goBack}><MaterialIcons name="arrow-back" size={34} color={COLORS.white} /></Link>
+                        <GoBack href={'/all-games'} style={style.goBack}/>
                         <Button title={'Начать сначала'} onClick={resetGame} widthPercent={isPortrait ? '50%' : '24%'}/>
                     </View>
                 </View>
