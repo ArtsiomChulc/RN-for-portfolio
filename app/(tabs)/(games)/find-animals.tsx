@@ -1,4 +1,11 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+    Image,
+    ScrollView, StyleProp,
+    StyleSheet,
+    Text, TextStyle,
+    useWindowDimensions,
+    View, ViewStyle
+} from 'react-native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {StatusBar} from "expo-status-bar";
 import {COLORS} from "@/constants/colors";
@@ -15,6 +22,10 @@ export default function FindAnimals() {
     const [popUpVisible, setPopUpVisible] = useState(false);
     const [popUpTitle, setPopUpTitle] = useState('');
     const [popUpMessage, setPopUpMessage] = useState('');
+
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height > width;
+
 
     const {userName} = useUserName();
     const questionsQuantity = findAnimals.length;
@@ -48,24 +59,62 @@ export default function FindAnimals() {
         }
     };
 
+    const getBtnWidth = () => {
+        if(isPortrait) {
+            return '48%'
+        } else {
+            return '20%'
+        }
+    }
+
+    const wrapBtnsStyle: StyleProp<ViewStyle> = {
+        width: '100%',
+        flexDirection: isPortrait ? 'row' : 'row-reverse',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'space-evenly',
+        gap: 10,
+        marginBottom: 15
+    };
+
+    const wrapperStyle: StyleProp<ViewStyle> = {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
+        gap: 20,
+        flexDirection: isPortrait ? 'column' : 'row',
+        flexWrap: 'wrap',
+    }
+
+    const wrapImgStyle: StyleProp<ViewStyle> = {
+        width: isPortrait ? 250 : 160,
+        height: isPortrait ? 250 : 160,
+    }
+
+    const textStyle: StyleProp<TextStyle> = {
+        fontSize: isPortrait ? 24 : 20,
+        paddingVertical: isPortrait ? 8 : 4,
+    }
+
     const answersButtons = currentAnimal.answers.map((item, index) => {
         return (
-            <View key={index} style={styles.btns}>
-                <Button title={item} onClick={() => handleAnswer(item)}/>
-            </View>
+            <Button key={index} title={item} onClick={() => handleAnswer(item)} widthPercent={getBtnWidth()}/>
         )
     })
 
     const getQuestion = () => {
         return <>
-            <Text style={styles.text}>Вопрос № {currentQuestionI + 1}</Text>
-            <View style={styles.wrapImg}>
+            <View>
+                <Text style={[styles.text, textStyle]}>Вопрос № {currentQuestionI + 1}</Text>
+                <Text style={[styles.text, textStyle]}>Отгадано: {score}</Text>
+                <Text style={[styles.text, textStyle]}>Всего вопросов: {questionsQuantity}</Text>
+            </View>
+            <View style={[styles.wrapImg, wrapImgStyle]}>
                 <Image style={styles.img} source={currentAnimal.image}
                        resizeMode={'contain'}/>
             </View>
-            <Text style={styles.text}>Отгадано: {score}</Text>
-            <Text style={styles.text}>Всего вопросов: {questionsQuantity}</Text>
-            <View style={styles.wrapBtn}>
+            <View style={wrapBtnsStyle}>
                 {answersButtons}
             </View>
         </>
@@ -74,7 +123,7 @@ export default function FindAnimals() {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <ScrollView contentContainerStyle={styles.wrapper}>
+                <ScrollView contentContainerStyle={wrapperStyle}>
                     {getQuestion()}
                 </ScrollView>
                 <PopUp
@@ -96,40 +145,18 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
         color: COLORS.gray
     },
-    wrapper: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-        gap: 20,
-    },
-    wrapBtn: {
-        width: '100%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 10,
-        marginBottom: 15
-    },
-    btns: {
-        width: '48%',
-    },
     text: {
         marginBottom: 10,
         color: COLORS.gray,
-        fontSize: 24,
         borderWidth: 1,
         borderColor: COLORS.grayOpacity,
         paddingHorizontal: 25,
-        paddingVertical: 8,
         borderRadius: 50,
         backgroundColor: COLORS.backgroundOpacity
     },
     wrapImg: {
         marginTop: 10,
         marginBottom: 10,
-        width: 250,
-        height: 250,
     },
     img: {
         borderRadius: 20,
